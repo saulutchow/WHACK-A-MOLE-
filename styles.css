@@ -1,0 +1,214 @@
+/* styles.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
+  background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 50%, #90EE90 100%);
+  color: #333;
+  user-select: none;
+  overflow: hidden;
+  cursor: default;
+}
+
+body.playing {
+  cursor: url('images/hammer.png') 16 16, auto !important;
+}
+
+#game {
+  text-align: center;
+  max-width: 600px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 35;
+  margin: 0 0 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #808080;
+}
+
+#instructions {
+  font-size: 13;
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+#ui {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  font-size: 2.2;
+  font-weight: bold;
+  width: 100%;
+  max-width: 500px;
+}
+
+#field {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  background: rgba(139, 69, 19, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hole {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(ellipse at center, #2d5016 0%, #1a3d0f 50%, #0f2208 100%);
+  border: 10px solid #3a5f2b;
+  border-radius: 70px;
+  box-shadow: inset 0 15px 25px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.2);
+  cursor: url('images/hammer.png'), auto;
+  transition: transform 0.1s;
+}
+
+.hole:hover {
+  transform: scale(1.02);
+}
+
+.mole {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  width: 100px;
+  height: 130px;
+  background: url('images/mole-normal.png') center/contain no-repeat;
+  transform: translateX(-50%);
+  cursor: url('images/hammer.png'), auto;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.mole.pop {
+  animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes popUp {
+  0% {
+    transform: translateX(-50%) translateY(20px) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-30px) scale(1.25);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-50px) scale(1);
+    opacity: 1;
+  }
+}
+
+.mole.hit {
+  background-image: url('images/mole-hit.png') !important;
+  filter: hue-rotate(90deg) brightness(0.6);
+}
+
+@keyframes whack {
+  0% {
+    transform: translateX(-50%) translateY(-50px) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-30px) scale(0.7, 0.4) rotate(-15deg);
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(0px) scale(0.5) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+#start {
+  font-size: 20;
+  font-family: inherit;
+  padding: 18px 50px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(238, 90, 82, 0.4);
+  transition: all 0.3s;
+}
+
+#start:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(238, 90, 82, 0.6);
+}
+
+#gameover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30;
+  text-shadow: 2px 2px 4px black;
+  z-index: 100;
+}
+
+#gameover h2 {
+  margin: 0 0 20px;
+  font-size: 12;
+}
+
+#gameover button {
+  font-size: 0.5em;
+  margin-top: 20px;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(68, 160, 141, 0.4);
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+#gameover button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(68, 160, 141, 0.6);
+}
+
+@media (max-width: 600px) {
+  #field {
+    max-width: 90vw;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .hole {
+    width: 110px;
+    height: 110px;
+  }
+
+  h1 {
+    font-size: 25;
+  }
+
+  #ui {
+    font-size: 18;
+  }
+}
